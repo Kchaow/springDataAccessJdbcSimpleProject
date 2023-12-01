@@ -6,11 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.test.context.TestPropertySource;
+
+import example.dao.SingerDao;
+
 import javax.sql.DataSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@TestPropertySource("/jdbc.properties")
 public class DataSourceConfigTest 
 {
 	private static Logger logger = LoggerFactory.getLogger(DataSourceConfigTest.class);
@@ -18,10 +24,12 @@ public class DataSourceConfigTest
 	@Test
 	void testDataSource() throws SQLException
 	{
-		var ctx = new AnnotationConfigApplicationContext(BasicDataSourceCfg.class);
+		var ctx = new AnnotationConfigApplicationContext(SpringDataSourceCfg.class);
 		var dataSource = ctx.getBean("dataSource", DataSource.class);
 		assertNotNull(dataSource);
 		testWorkDataSource(dataSource);
+		var singerDao = ctx.getBean("singerDao", SingerDao.class);
+		assertEquals("Michael Jackson", singerDao.findNameById(10L));
 		ctx.close();
 	}
 	

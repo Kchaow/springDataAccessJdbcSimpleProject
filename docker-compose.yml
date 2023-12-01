@@ -1,12 +1,17 @@
 services:
 
   database:
+    container_name: exampleJDBC
     image: postgres
     restart: always
+    volumes: 
+        - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_DB: db
       POSTGRES_USER: user
       POSTGRES_PASSWORD: 1298
+    ports:
+      - "5432:5432"
 
   adminer:
     image: adminer

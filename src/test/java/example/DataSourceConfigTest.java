@@ -7,8 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.TestPropertySource;
 
+import example.dao.RowMapperDao;
 import example.dao.SingerDao;
 
 import javax.sql.DataSource;
@@ -29,7 +31,11 @@ public class DataSourceConfigTest
 		assertNotNull(dataSource);
 		testWorkDataSource(dataSource);
 		var singerDao = ctx.getBean("singerDao", SingerDao.class);
+		var rowMapperDao = ctx.getBean("rowMapperDao", RowMapperDao.class);
 		assertEquals("Michael Jackson", singerDao.findNameById(10L));
+		var singers = rowMapperDao.findAll();
+		singers.forEach((x) -> logger.info(x.toString()));
+		assertEquals(1, singers.size());
 		ctx.close();
 	}
 	

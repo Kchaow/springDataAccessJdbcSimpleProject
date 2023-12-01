@@ -1,0 +1,15 @@
+services:
+
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 1298
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@TestPropertySource("/jdbc.properties")
+//@TestPropertySource("/jdbc.properties")
 public class DataSourceConfigTest 
 {
 	private static Logger logger = LoggerFactory.getLogger(DataSourceConfigTest.class);

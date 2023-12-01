@@ -63,4 +63,10 @@ public class JdbcSingerDao implements SingerDao, InitializingBean
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Set<Singer> findAllWithAlbums() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
